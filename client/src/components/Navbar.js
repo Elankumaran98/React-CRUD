@@ -4,14 +4,14 @@ import {Link} from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-expand-lg navbar-warning bg-warning">
       <div className="container-fluid">
         <Link to="/" className="navbar-brand">
           <img
             src={eye}
             alt=""
-            width="30"
-            height="24"
+            width="50"
+            height="30"
             className="d-inline-block align-text-top rounded-pill me-3"
           />
           EL
