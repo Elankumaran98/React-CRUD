@@ -1,12 +1,16 @@
 {
-    "users":[
-        {
-            "id":"1",
-            "name":"Laxi"
-        },
-        {
-            "id":"2",
-            "name":"Elanko"
-        }
-    ]
+  "users": [
+    {
+      "id": "1",
+      "name": "Laxi"
+    },
+    {
+      "id": "2",
+      "name": "Elanko"
+    },
+    {
+      "id": "3",
+      "name": "hi"
+    }
+  ]
 }
