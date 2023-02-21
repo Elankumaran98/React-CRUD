@@ -36,7 +36,12 @@ const Home = () => {
   };
 
   //delete use
-  const deleteUser = () => {};
+  const deleteUser = (id) => {
+    axios.delete(`http://localhost:3003/users/${id}`)
+    setTimeout(() => {
+      loadData();
+    }, 500);
+  };
 
   return (
     <div className="container">
@@ -70,7 +75,9 @@ const Home = () => {
       {users.map((user) => (
         <div className="m-3 card text-center" key={user.id}>
           {user.id} {user.name}
-          <button className="btn btn-danger m-3" onClick={deleteUser}>
+          <button className="btn btn-danger m-3" onClick={()=>{
+            deleteUser(user.id)
+          }}>
             Delete
           </button>
         </div>
