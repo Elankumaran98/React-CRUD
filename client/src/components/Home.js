@@ -10,7 +10,6 @@ const Home = () => {
     loadData();
   }, []);
 
-
   //get user from api
   const loadData = async () => {
     const response = await axios.get("http://localhost:3003/users");
@@ -19,36 +18,61 @@ const Home = () => {
   };
 
   //add user
-  const addUser=(e)=>{
+  const addUser = (e) => {
     e.preventDefault();
-    axios.post("http://localhost:3003/users",{id,name}).then(()=>{
-      setId('');
-      setName('');
-    }).catch(err=>{
-      console.log(err)
-    })
-    console.log(id,name)
-  }
+    axios
+      .post("http://localhost:3003/users", { id, name })
+      .then(() => {
+        setId("");
+        setName("");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    setTimeout(() => {
+      loadData();
+    }, 500);
+    console.log(id, name);
+  };
 
+  //delete use
+  const deleteUser = () => {};
 
   return (
     <div className="container">
-      <input
-        value={id}
-        onChange={(e) => setId(e.target.value)}
-        placeholder="Enter Id"
-      ></input>
-      <input
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        placeholder="Enter Name"
-      ></input>
-      <button onClick={addUser}>Add User</button>
-      
-      
+      <form className="m-2 p-2">
+        <div class="mb-3">
+          <label className="form-label">Enter Id</label>
+
+          <input
+            className="form-control"
+            value={id}
+            onChange={(e) => setId(e.target.value)}
+            placeholder="Enter Id"
+          />
+        </div>
+        <div class="mb-3">
+          <label className="form-label">Enter Name</label>
+
+          <input
+            className="form-control"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Enter Name"
+          />
+        </div>
+
+        <button className="btn btn-success" onClick={addUser}>
+          Add User
+        </button>
+      </form>
+
       {users.map((user) => (
-        <div key={user.id}>
+        <div className="m-3 card text-center" key={user.id}>
           {user.id} {user.name}
+          <button className="btn btn-danger m-3" onClick={deleteUser}>
+            Delete
+          </button>
         </div>
       ))}
     </div>
