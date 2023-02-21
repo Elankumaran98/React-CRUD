@@ -5,6 +5,7 @@ const Home = () => {
   const [users, setUsers] = useState([]);
   const [id, setId] = useState("");
   const [name, setName] = useState("");
+  const [update, setUpdate] = useState({ id: "", name: "" });
 
   useEffect(() => {
     loadData();
@@ -35,12 +36,30 @@ const Home = () => {
     console.log(id, name);
   };
 
-  //delete use
+  //delete user
   const deleteUser = (id) => {
-    axios.delete(`http://localhost:3003/users/${id}`)
+    axios.delete(`http://localhost:3003/users/${id}`);
     setTimeout(() => {
       loadData();
     }, 500);
+  };
+
+  //update User
+  const updateUser = (id) => {
+    axios
+      .put(`http://localhost:3003/users/${update.id}`, {
+        id: update.id,
+        name: update.name,
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+      setTimeout(() => {
+        loadData();
+      }, 500);
   };
 
   return (
@@ -75,11 +94,31 @@ const Home = () => {
       {users.map((user) => (
         <div className="m-3 card text-center" key={user.id}>
           {user.id} {user.name}
-          <button className="btn btn-danger m-3" onClick={()=>{
-            deleteUser(user.id)
-          }}>
+          <button
+            className="btn btn-danger m-3"
+            onClick={() => {
+              deleteUser(user.id);
+            }}
+          >
             Delete
           </button>
+          <div>
+            <div className="p-2">
+              <input
+                className="form-control m-3"
+                placeholder="Enter Updated Id"
+                onChange={(e) => setUpdate({ ...update, id: e.target.value })}
+              />
+              <input
+                className="form-control m-3"
+                placeholder="Enter Updated Name"
+                onChange={(e) => setUpdate({ ...update, name: e.target.value })}
+              />
+              <button className=" btn btn-warning m-3" onClick={updateUser}>
+                Update
+              </button>
+            </div>
+          </div>
         </div>
       ))}
     </div>
